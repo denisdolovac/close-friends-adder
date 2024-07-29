@@ -4,7 +4,7 @@ This script automates the process of adding usernames to a close friends list on
 
 ## Script in Action
 
-
+![Script in Action](https://github.com/user-attachments/assets/47a32592-df5c-4be9-a791-54dbba9022dc)
 
 ## Requirements
 
