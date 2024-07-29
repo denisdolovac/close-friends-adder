@@ -5,7 +5,7 @@ import os
 from PIL import Image
 
 
-def find_color_on_screen(rgb_color, tolerance=10):
+def find_color_on_screen(rgb_color, tolerance=5):
     screen_width, screen_height = pyautogui.size()
     screenshot = pyautogui.screenshot()
 
@@ -50,6 +50,10 @@ def main():
     # Initialize counter
     count = 0
 
+    # Give time to user to prepare and click on window
+    print("Script will start in 5 seconds, click on the Instagram window.")
+    time.sleep(5)
+
     # Start by opening Find tool
     pyautogui.hotkey("ctrl", "f")
 
@@ -58,39 +62,39 @@ def main():
             print(f"Processed {count} usernames. Exiting.")
             break
 
-        # Find and click near lupa.png
-        lupa = pyautogui.locateOnScreen("lupa.png")
+        # Find and click near loupe.png
+        lupa = pyautogui.locateOnScreen("loupe.png")
         if lupa:
             click_x = lupa.left + lupa.width + random.randint(200, 250)
             click_y = lupa.top + lupa.height // 2
             pyautogui.click(click_x, click_y)
         else:
-            print("Couldn't find lupa.png")
+            print("Couldn't find loupe.png")
             continue
 
         # Write username
         write_username(username)
         time.sleep(5)  # Wait for results to populate
 
-        # Wait for kruzic.png or kruzic2.png
-        kruzic_found = False
-        kruzic2_found = False
+        # Wait for circle.png or circle_blue.png
+        circle_found = False
+        circle_blue_found = False
         start_time = time.time()
         timeout = 10  # Set a timeout of 10 seconds
 
         while time.time() - start_time < timeout:
-            if pyautogui.locateOnScreen("kruzic2.png"):
+            if pyautogui.locateOnScreen("circle_blue.png"):
                 print(f"Username @{username} is already added to close friends.")
-                kruzic2_found = True
+                circle_blue_found = True
                 break
-            elif pyautogui.locateOnScreen("kruzic.png"):
+            elif pyautogui.locateOnScreen("circle.png"):
                 print(f"Adding @{username}...")
-                kruzic_found = True
+                circle_found = True
                 break
 
             time.sleep(0.5)
 
-        if kruzic_found:
+        if circle_found:
             # Press CTRL+F, CTRL+A, and input username
             pyautogui.hotkey("ctrl", "f")
             pyautogui.hotkey("ctrl", "a")
@@ -113,9 +117,9 @@ def main():
             else:
                 print(f"Couldn't find color for @{username}.")
 
-        # Whether kruzic.png or kruzic2.png is found, or if timeout occurs, do this part:
+        # Whether circle.png or circle_blue.png is found, or if timeout occurs, do this part:
 
-        # We want to scroll to the top, in case we went below the part where we can find lupa.png
+        # We want to scroll to the top, in case script went below the part of the screen where we can find loupe.png
         scroll_to_top()
 
         # Return to starting position and clear
